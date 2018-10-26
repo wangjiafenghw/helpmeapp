@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/setting.css">
+</head>
+<body>
+    <div class="top">
+        <p></p>
+        <p class="title">HELP ME!!</p>
+        <p class="top-right">
+            <a href="./setting.html">
+                <img src="./images/setting.png" alt="">
+            </a>
+        </p>
+    </div>
+    <div class="main">
+        <input style="display: none;" id="username" type="text">
+        <input style="display: none;" id="password" type="password">
+        <label for="telphone">应急联系人：</label><input id="telphone" type="text"><br>
+        <label for="message">应急信息：</label><input id="message" type="text"><br>
+        <button id="upload">提交</button>
+    </div>
+    <!-- tabbar -->
+    <div class="tabbar">
+        <ul class="bar_list">
+            <li><a href="./index.html"><img src="./images/index.png" alt=""><p>主页</p></a></li>
+            <li><a href="#"><img src="./images/index.png" alt=""><p>录音</p></a></li>
+            <li><a href="./user.html"><img src="./images/user.png" alt=""><p>我的</p></a></li>
+        </ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./config.js"></script>
+    <script src="./jquery.cookie.js"></script>
+    <script src="./app.js"></script>
+    <script>
+        $.ajax({
+            type: "GET",
+            url: config.getSetting,
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function (response) {
+                $("#telphone").val(response.data.TEL)
+                $("#message").val(response.data.MSG)
+
+            }
+        });
+    </script>
+</body>
+</html>

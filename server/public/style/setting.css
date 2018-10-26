@@ -1,0 +1,16 @@
+.top{
+    background-color: #5698c3;
+}
+label{
+    display: inline-block;
+    width: 30%;
+    text-align: right;
+}
+.main{
+    text-align: center;
+}
+#upload{
+    display: inline-block;
+    margin: 30px auto;
+    width: 80%
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <!-- 顶部 -->
+        <div class="top">
+            <p></p>
+            <p class="title">HELP ME!!</p>
+            <p class="top-right">
+                <a href="./setting.html">
+                    <img src="./images/setting.png" alt="">
+                </a>
+            </p>
+        </div>
+        <!-- 主体 -->
+        <div class="main">
+            <div class="btn-ready" id="ready" style="z-index: 20"><div>准备</div></div>
+            <div class="btn-border"></div>
+        </div>
+        <!-- tabbar -->
+        <div class="tabbar">
+            <ul class="bar_list">
+                <li><a href="./index.html"><img src="./images/index.png" alt=""><p>主页</p></a></li>
+                <li><a href="#"><img src="./images/index.png" alt=""><p>录音</p></a></li>
+                <li><a href="./user.html"><img src="./images/user.png" alt=""><p>我的</p></a></li>    
+            </ul>
+        </div>
+    </div>
+    <audio src="#" id="audio"></audio>
+    <div class="black" id="black">
+
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <script src="./config.js"></script>
+    <script src="./app.js"></script>
+    <script>
+    var times = 1; //只能发送一次
+    $("#black").on({
+		touchstart: function(e) {
+			// 长按事件触发  
+			timeOutEvent = setTimeout(function() {
+				timeOutEvent = 0;
+				if(times===1){
+					helpme()
+					time = 0;
+					throw_msg("报警成功！")
+			
+		            user.ready = 0;
+		        	$("#black").removeClass("on")
+				}else{
+					throw_msg("请重启应用再次报警！")
+				}
+			}, 1000);
+			//长按400毫秒   
+			// e.preventDefault();    
+		}
+	})	
+    $.ajax({
+			type:"GET",
+            url: config.isLogined,
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function (response) {
+                if(response.code==1){
+                    confirm("去登陆")
+                    $(location).attr('href', "./user.html")
+                }
+            }
+        });
+    </script>
+</body>
+</html>

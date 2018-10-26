@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/style.css">
+    <link rel="stylesheet" href="./style/setting.css">
+    <link rel="stylesheet" href="./style/user.css">
+</head>
+
+<body>
+    <div class="top">
+        <p></p>
+        <p class="title">HELP ME!!</p>
+        <p class="top-right">
+            <a href="./setting.html">
+                <img src="./images/setting.png" alt="">
+            </a>
+        </p>
+    </div>
+    <div class="main">
+        <div id="form">
+        <label for="username">用户名：</label><input id="username" type="text"><br>
+        <label for="password">密&nbsp&nbsp&nbsp&nbsp码：</label><input id="password" type="password"><br>
+        <button id="login">登陆</button>
+        <button id="sign_up">注册</button>
+        </div>
+        <!-- tabbar -->
+        <div class="tabbar">
+            <ul class="bar_list">
+                <li><a href="./index.html"><img src="./images/index.png" alt="">
+                        <p>主页</p>
+                    </a></li>
+                <li><a href="#"><img src="./images/index.png" alt="">
+                        <p>录音</p>
+                    </a></li>
+                <li><a href="./user.html"><img src="./images/user.png" alt="">
+                        <p>我的</p>
+                    </a></li>
+            </ul>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./config.js"></script>
+    <script src="./jquery.cookie.js"></script>
+    <script src="./app.js"></script>
+    <script>
+        $.ajax({
+            type: "GET",
+            url: config.getSetting,
+            dataType: "json",
+            xhrFields: {
+                withCredentials: true
+            },
+            crossDomain: true,
+            success: function (response) {
+                if(response.data){
+                    $("#form").html("已登陆")
+                    
+                }
+
+            }
+        });
+    </script>
+</body>
+
+</html>
