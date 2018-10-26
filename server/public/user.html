@@ -51,11 +51,6 @@
         $.ajax({
             type: "GET",
             url: config.getSetting,
-            dataType: "json",
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
             success: function (response) {
                 if(response.data){
                     $("#form").html("已登陆")

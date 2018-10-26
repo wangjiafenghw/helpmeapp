@@ -36,7 +36,7 @@ $(function(){
             }
         );
     })
-    $("#black").on("click", function(){
+    $("#black").dblclick(function(){
         user.ready = 0;
         $(this).removeClass("on")
     })
@@ -48,29 +48,29 @@ $(function(){
 })
 
 
-function helpme(){
-    var position = getLocation();
-    var position_str = ''
-    if(position){
-        position_str = `东经:${position.longitude}，北纬:${position.latitude}`
-    }else{
-        position_str = '暂无';
-    }
+// function helpme(){
+//     var position = getLocation();
+//     var position_str = ''
+//     if(position){
+//         position_str = `东经:${position.longitude}，北纬:${position.latitude}`
+//     }else{
+//         position_str = '暂无';
+//     }
     
-    $.ajax({
-        type: "get",
-        url: config.helpme,
-        data: "position="+position_str,
-        dataType: "json",
-        xhrFields: {
-            withCredentials: true
-        },
-        crossDomain: true,
-        success: function (response) {
-            console.log(response)
-        }
-    });
-}
+//     $.ajax({
+//         type: "get",
+//         url: config.helpme,
+//         data: "position="+position_str,
+//         dataType: "json",
+//         xhrFields: {
+//             withCredentials: true
+//         },
+//         crossDomain: true,
+//         success: function (response) {
+//             console.log(response)
+//         }
+//     });
+// }
 
 //地理位置信息
 function getLocation(){

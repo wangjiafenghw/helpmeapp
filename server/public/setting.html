@@ -41,11 +41,6 @@
         $.ajax({
             type: "GET",
             url: config.getSetting,
-            dataType: "json",
-            xhrFields: {
-                withCredentials: true
-            },
-            crossDomain: true,
             success: function (response) {
                 $("#telphone").val(response.data.TEL)
                 $("#message").val(response.data.MSG)
