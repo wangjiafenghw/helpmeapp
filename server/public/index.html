@@ -28,7 +28,7 @@
         <div class="tabbar">
             <ul class="bar_list">
                 <li><a href="./index.html"><img src="./images/index.png" alt=""><p>主页</p></a></li>
-                <li><a href="#"><img src="./images/index.png" alt=""><p>录音</p></a></li>
+                <li><a href="./map.html"><img src="./images/map.png" alt=""><p>位置</p></a></li>
                 <li><a href="./user.html"><img src="./images/user.png" alt=""><p>我的</p></a></li>    
             </ul>
         </div>
@@ -37,11 +37,65 @@
     <div class="black" id="black">
 
     </div>
+    <div id="allmap" style="display: none"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=KbEkRmkiAcCjgomEgbVsidp7XwQnVQxx"></script>
+    <script src="./recorder.js"></script>
+    <script src="./recorderWorker.js"></script>
     <script src="./config.js"></script>
     <script src="./app.js"></script>
     <script>
+        //录音功能
+        window.URL = window.URL;
+        navigator.getUserMedia = navigator.webkitGetUserMedia;
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({video:true,audio:true}, function(localMediaStream){
+                var context = new AudioContext();
+                var mediaStreamSource = context.createMediaStreamSource(localMediaStream);
+                window.MediaStreamSource = mediaStreamSource;
+            }, function(){
+
+
+            });
+        }else {
+            Ext.Msg.alert("消息提示","你的浏览器不支持录音");
+        }
+        function startLuYin(){
+            var rec = new Recorder(MediaStreamSource);
+            window.rec=rec;
+        }
+        function stopLuYin(){
+            window.rec.stop();
+            rec.exportWAV(function(blob) {
+            //导出录音过程产生的blob数据，传给后台实现音频的保存
+                upload(blob)
+            });
+        }
+        function playLuYin(){
+            var video = document.getElementById('video_player');
+            //获取blob对象地址，并把值赋给容器
+            video.src = window.blob;
+
+        }
+        // 百度地图API功能
+        var map = new BMap.Map("allmap");
+        var point = new BMap.Point(116.331398,39.897445);
+        map.centerAndZoom(point,12);
+
+        var geolocation = new BMap.Geolocation();
+        geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+        var mk = new BMap.Marker(r.point);
+        map.addOverlay(mk);
+        map.panTo(r.point);
+        window.posMsg = '您的位置：'+r.point.lng+','+r.point.lat;
+        alert(window.posMsg)
+        }
+        else {
+        alert('failed'+this.getStatus());
+        }
+        },{enableHighAccuracy: true})
+
     var times = 1; //只能发送一次
     $("#black").on({
 		touchstart: function(e) {
@@ -49,12 +103,17 @@
 			timeOutEvent = setTimeout(function() {
 				timeOutEvent = 0;
 				if(times===1){
-					helpme()
-					time = 0;
-					throw_msg("报警成功！")
-			
+                    // helpme()
+                    // test
+                    stopLuYin()//停止录音并上传
+                    $("#black").removeClass("on")
+                    time = 0;        
+                    throw_msg("{msg}"+window.posMsg, 'default', 3000)        
+                    setInterval(function(){
+                        throw_msg("{msg}"+window.posMsg, 'default', 3000) 
+                    }, 1000*60*5)   //五分钟一次
 		            user.ready = 0;
-		        	$("#black").removeClass("on")
+		        	
 				}else{
 					throw_msg("请重启应用再次报警！")
 				}
@@ -79,5 +138,6 @@
             }
         });
     </script>
+
 </body>
 </html>

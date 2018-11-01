@@ -165,3 +165,28 @@ p{
 .black.on{
     display: block;
 }
+
+/* 弹窗 */
+.top-msg-box{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    text-align: center;
+    margin: 0 10%;
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 80%;
+    height: 100px;
+    background-color: #fff;
+    border-radius: 10px;
+    font-size: 20px;
+    transition: all 0.5s; 
+    z-index: 10000;
+}
+.top-msg-box.on{
+    top: 10px;
+}

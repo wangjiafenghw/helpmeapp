@@ -51,7 +51,8 @@ router.post("/signUp", (req, res)=>{
 			resolve();
 		})
 	}).then(()=>{
-		console.log('注册成功');
+        res.send({msg: '注册成功!', code: 0})
+        res.end();
 	}).catch((error)=>{
 		console.error(error)
 	})

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div>
+        <audio id="sound" controls="controls" width="500" height="300"></audio>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        //创建XMLHttpRequest对象
+        var xhr = new XMLHttpRequest();
+        //配置请求方式、请求地址以及是否同步
+        xhr.open('GET', './uploads/'+window.location.search.substring(1), true);
+        //设置请求结果类型为blob
+        xhr.responseType = 'blob';
+        //请求成功回调函数
+        xhr.onload = function(e) {
+            if (this.status == 200) {//请求成功
+                //获取blob对象
+                var blob = this.response;
+                //获取blob对象地址，并把值赋给容器
+                $("#sound").attr("src", URL.createObjectURL(blob));
+            }
+        };
+        xhr.send();
+
+        
+    </script>
+</body>
+</html>

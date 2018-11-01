@@ -23,10 +23,14 @@
     </div>
     <div class="main">
         <div id="form">
-        <label for="username">用户名：</label><input id="username" type="text"><br>
-        <label for="password">密&nbsp&nbsp&nbsp&nbsp码：</label><input id="password" type="password"><br>
-        <button id="login">登陆</button>
-        <button id="sign_up">注册</button>
+            <label for="username">用户名：</label><input id="username" type="text"><br>
+            <label for="password">密&nbsp&nbsp&nbsp&nbsp码：</label><input id="password" type="password"><br>
+            <button id="login">登陆</button>
+            <button id="sign_up">注册</button>
+        </div>
+        <div id="Logined" style="display: none">
+            <p>已登陆</p>
+            <button id="logout">退出登陆</button>
         </div>
         <!-- tabbar -->
         <div class="tabbar">
@@ -34,8 +38,8 @@
                 <li><a href="./index.html"><img src="./images/index.png" alt="">
                         <p>主页</p>
                     </a></li>
-                <li><a href="#"><img src="./images/index.png" alt="">
-                        <p>录音</p>
+                <li><a href="./map.html"><img src="./images/map.png" alt="">
+                        <p>位置</p>
                     </a></li>
                 <li><a href="./user.html"><img src="./images/user.png" alt="">
                         <p>我的</p>
@@ -53,8 +57,8 @@
             url: config.getSetting,
             success: function (response) {
                 if(response.data){
-                    $("#form").html("已登陆")
-                    
+                    $("#form").css("display", "none")
+                    $("#Logined").css("display", "block")
                 }
 
             }

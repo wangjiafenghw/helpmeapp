@@ -11,6 +11,7 @@ var users = require('./routes/users');
 
 var app = express();
 
+app.use(express.static('./public'));
 
 app.use(cors());
 

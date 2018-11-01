@@ -20,11 +20,20 @@ $(function(){
         user.username = username;
         $.post(config.sign_up, { username: username, password: password },
             function (data) {
-                
+                throw_msg("注册成功")
                 
             }
         );
     })
+    // 退出登陆
+    $("#logout").on("click", function(){
+        $.cookie('token', null);
+        $.cookie('username', null);
+        $("#form").css("display", "block")
+        $("#Logined").css("display", "none")
+        throw_msg("已退出登陆")
+    })
+
     $("#upload").on("click",function(){
         var telphone = $("#telphone").val();
         var message = $("#message").val();
@@ -43,41 +52,47 @@ $(function(){
     $("#ready").on("click", function(){
         user.ready = 1;
         $("#black").addClass("on")
+        startLuYin()//开始录音
     })
     
 })
 
-
-// function helpme(){
-//     var position = getLocation();
-//     var position_str = ''
-//     if(position){
-//         position_str = `东经:${position.longitude}，北纬:${position.latitude}`
-//     }else{
-//         position_str = '暂无';
-//     }
-    
-//     $.ajax({
-//         type: "get",
-//         url: config.helpme,
-//         data: "position="+position_str,
-//         dataType: "json",
-//         xhrFields: {
-//             withCredentials: true
-//         },
-//         crossDomain: true,
-//         success: function (response) {
-//             console.log(response)
-//         }
-//     });
-// }
-
-//地理位置信息
-function getLocation(){
-    navigator.geolocation.getCurrentPosition(function(position) {
-        return position.coords
+function upload(blob){
+    var formData = new FormData();
+    formData.append("data", blob);
+    $.ajax({
+        url: config.upload,
+        type: 'post',
+        processData: false,
+        contentType: false,
+        data: formData,
+        dataType: 'json',
+        success: function (data) {
+            var url = data.data
+            // helpme(url)
+            throw_msg('录音路径：'+url)
+        }
     });
 }
+
+function helpme(url){
+  
+    var data = "position="+window.posMsg+"url"+url
+    $.ajax({
+        type: "get",
+        url: config.helpme,
+        data: data,
+        dataType: "json",
+        xhrFields: {
+            withCredentials: true
+        },
+        crossDomain: true,
+        success: function (response) {
+            console.log(response)
+        }
+    });
+}
+
 
 var login_fun = {
     data: {},
@@ -124,8 +139,10 @@ function throw_msg(str, msg_style, time) {
     
     setTimeout(function() {
         $("#"+rand).addClass("on");
+        console.log('show')
     }, 20)
     setTimeout(function() {
         $("#"+rand).removeClass("on");
+        console.log('hide')
     }, time)
 }
