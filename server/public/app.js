@@ -8,7 +8,6 @@ $(function(){
         user.username = username;
         $.post(config.login, { username: username, password: password },
             function (data) {
-                console.log("loginData=>"+data)
                 login_fun.estimate_main(data)
             }
         );
@@ -39,7 +38,6 @@ $(function(){
         var message = $("#message").val();
         $.post(config.setting, { tel: telphone, msg: message },
             function (data) {
-                console.log(data)
                 confirm("设置完成")
                 $(location).attr('href', "/")
             }
