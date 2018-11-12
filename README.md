@@ -1,6 +1,6 @@
 # helpmeapp
 大创项目
-![流程图](https://raw.githubusercontent.com/wangjiafenghw/helpmeapp/master/htlpmeapp.jpgs)
+![流程图](https://raw.githubusercontent.com/wangjiafenghw/helpmeapp/master/htlpmeapp.jpg)
 
 > 项目实施情况
 * 使用阿里云搭载云端服务器，使用NodeJs的express框架实现静态静态文件托管、路由接口开发以及录音文件保存与下载。
